@@ -1,21 +1,171 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VCSCF</title>
+<meta charset="UTF-8" />
+<title>5 Cool Code Snippets in One Page</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0; padding: 20px;
+    background: #121212;
+    color: #eee;
+  }
+  h2 {
+    border-bottom: 2px solid #00ffcc;
+    padding-bottom: 5px;
+  }
+  section {
+    margin-bottom: 50px;
+    background: #222;
+    padding: 20px;
+    border-radius: 10px;
+  }
+
+  /* Typewriter Effect */
+  #typewriter {
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 1.5rem;
+    color: #00ffcc;
+  }
+  #typewriter::after {
+    content: "|";
+    animation: blink 0.7s infinite;
+  }
+  @keyframes blink {
+    0%,100%{opacity:1;}
+    50%{opacity:0;}
+  }
+
+  /* Dark/Light Toggle */
+  #darkToggle {
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background: #00ffcc;
+    border: none;
+    border-radius: 5px;
+    color: #121212;
+  }
+
+  /* Magic Color Background */
+  #magicBackground {
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+    border-radius: 8px;
+    user-select: none;
+    margin-top: 10px;
+    cursor: pointer;
+  }
+
+  /* Countdown Timer */
+  #timer {
+    font-size: 3rem;
+    color: #0f0;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+
+  /* Bouncing Ball */
+  .ball {
+    width: 50px;
+    height: 50px;
+    background: #ff4081;
+    border-radius: 50%;
+    animation: bounce 1s infinite ease-in-out;
+    margin: 20px auto 0 auto;
+  }
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0);}
+    50% { transform: translateY(-150px);}
+  }
+</style>
 </head>
 <body>
-    <h1>welcome new branch</h1>
-    <h1></h1>
-    <h1>2</h1>
-    <h1>3</h1>
-    <h1>4</h1>
-    <h1>5</h1>
-    <h1>6</h1>
-    <h1>7</h1>
-    <h1>8</h1>
-    <h1>9</h1>
-    <h1>10</h1>
+
+  <!-- 1. Typewriter -->
+  <section>
+    <h2>1. Typewriter Text Effect</h2>
+    <div id="typewriter"></div>
+  </section>
+
+  <!-- 2. Dark/Light Mode -->
+  <section>
+    <h2>2. Dark / Light Mode Toggle</h2>
+    <button id="darkToggle">Switch to Light Mode</button>
+  </section>
+
+  <!-- 3. Magic Background -->
+  <section>
+    <h2>3. Magic Color Changing Background</h2>
+    <div id="magicBackground">Click here to change my background color!</div>
+  </section>
+
+  <!-- 4. Countdown Timer -->
+  <section>
+    <h2>4. Countdown Timer</h2>
+    <div id="timer">10</div>
+  </section>
+
+  <!-- 5. Bouncing Ball -->
+  <section>
+    <h2>5. Bouncing Ball Animation</h2>
+    <div class="ball"></div>
+  </section>
+
+<script>
+  // 1. Typewriter
+  const text = "Hello 👋, welcome to my GitHub Page!";
+  let i = 0;
+  function typeWriter() {
+    if (i < text.length) {
+      document.getElementById("typewriter").innerHTML += text.charAt(i);
+      i++;
+      setTimeout(typeWriter, 100);
+    }
+  }
+  typeWriter();
+
+  // 2. Dark/Light Mode Toggle
+  const btn = document.getElementById('darkToggle');
+  btn.onclick = () => {
+    document.body.classList.toggle('lightMode');
+    if(document.body.classList.contains('lightMode')){
+      document.body.style.background = "#eee";
+      document.body.style.color = "#121212";
+      btn.textContent = "Switch to Dark Mode";
+    } else {
+      document.body.style.background = "#121212";
+      document.body.style.color = "#eee";
+      btn.textContent = "Switch to Light Mode";
+    }
+  };
+
+  // 3. Magic Color Changing Background
+  const magicDiv = document.getElementById('magicBackground');
+  const colors = ['#e74c3c', '#8e44ad', '#3498db', '#27ae60', '#f39c12', '#d35400'];
+  magicDiv.style.backgroundColor = colors[0];
+  magicDiv.style.color = '#fff';
+  magicDiv.addEventListener('click', () => {
+    const color = colors[Math.floor(Math.random() * colors.length)];
+    magicDiv.style.backgroundColor = color;
+  });
+
+  // 4. Countdown Timer
+  let timeLeft = 10;
+  const timerEl = document.getElementById('timer');
+  const countdown = setInterval(() => {
+    timeLeft--;
+    timerEl.textContent = timeLeft > 0 ? timeLeft : "Time's Up! ⏰";
+    if (timeLeft <= 0) {
+      clearInterval(countdown);
+    }
+  }, 1000);
+
+  // 5. Bouncing Ball animation is CSS only, no JS needed
+</script>
+
 </body>
 </html>
