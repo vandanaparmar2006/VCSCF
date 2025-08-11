@@ -117,15 +117,15 @@
   <form id="quizForm">
     <div class="quiz-question">
       <strong>1. What is my favorite color?</strong><br />
-      <label><input type="radio" name="q1" value="a"> Blue</label>
-      <label><input type="radio" name="q1" value="b"> Purple</label>
-      <label><input type="radio" name="q1" value="c"> Red</label>
+      <label><input type="radio" name="q1" value="Blue"> Blue</label>
+      <label><input type="radio" name="q1" value="Purple"> Purple</label>
+      <label><input type="radio" name="q1" value="Red"> Red</label>
     </div>
     <div class="quiz-question">
       <strong>2. What’s my favorite food?</strong><br />
-      <label><input type="radio" name="q2" value="a"> Pizza</label>
-      <label><input type="radio" name="q2" value="b"> Chocolate</label>
-      <label><input type="radio" name="q2" value="c"> Ice Cream</label>
+      <label><input type="radio" name="q2" value="Pizza"> Pizza</label>
+      <label><input type="radio" name="q2" value="Chocolate"> panipuri</label>
+      <label><input type="radio" name="q2" value="Ice Cream"> manchuriyan</label>
     </div>
     <button type="button" id="submitQuiz">Submit Quiz</button>
   </form>
@@ -133,34 +133,41 @@
 </div>
 
 <script>
-  // Surprise message button
-  document.getElementById('showMsgBtn').addEventListener('click', () => {
-    const msg = document.getElementById('surpriseMsg');
-    msg.style.display = msg.style.display === 'none' ? 'block' : 'none';
-  });
+document.getElementById('submitQuiz').addEventListener('click', () => {
+  const form = document.getElementById('quizForm');
+  const q1 = [...form.elements['q1']].find(r => r.checked);
+  const q2 = [...form.elements['q2']].find(r => r.checked);
 
-  // Quiz logic
-  document.getElementById('submitQuiz').addEventListener('click', () => {
-    const answers = {
-      q1: 'b', // Purple
-      q2: 'b'  // Chocolate
-    };
-    const form = document.getElementById('quizForm');
-    let score = 0;
-    let total = Object.keys(answers).length;
+  if (!q1 || !q2) {
+    alert("Please answer all questions!");
+    return;
+  }
+    const correctAnswers = {
+    q1: 'Purple',
+    q2: 'Panipuri'
+  };
 
-    for (const q in answers) {
-      const selected = form.elements[q].value;
-      if (selected === answers[q]) score++;
-    }
+  let score = 0;
+  if (q1.value === correctAnswers.q1) score++;
+  if (q2.value === correctAnswers.q2) score++;
 
-    const result = document.getElementById('result');
-    if (score === total) {
-      result.textContent = "Amazing! You know me perfectly! 💜";
-    } else {
-      result.textContent = `You scored ${score} out of ${total}. Let’s get to know each other more! 😊`;
-    }
-  });
+
+  // Answers text
+  const answersText = `
+  Quiz Answers:
+  1) Favorite color: ${q1.value}
+  2) Favorite food: ${q2.value}
+  `;
+
+  // Prepare mailto link
+  const mailtoLink = `mailto:your-email@example.com?subject=Quiz Answers&body=${encodeURIComponent(answersText)}`;
+
+  // Open default email client with this mail
+  window.location.href = mailtoLink;
+
+  // Optional: show message on page
+  document.getElementById('result').textContent = "Thanks for submitting! Please send the email to share your answers.";
+});
 </script>
 
 </body>
